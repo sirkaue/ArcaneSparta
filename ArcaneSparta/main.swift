@@ -122,3 +122,60 @@ func iniciarDuelo(ordem: OrdemArcana) {
         print("")
     }
 }
+
+var executando = true
+
+while executando {
+    mostrarMenu()
+    let opcao = readLine()
+    
+    switch opcao {
+        case "1":
+            print("""
+            Escolha sua Ordem:
+            1. Hélio
+            2. Nyx
+            3. Kháos
+            """)
+            let escolha = readLine()
+            
+            switch escolha {
+                case "1": ordemEscolhida = .helio
+                case "2": ordemEscolhida = .nyx
+                case "3": ordemEscolhida = .khaos
+                default: print("Escolha inválida.")
+            }
+            
+            if let ordem = ordemEscolhida {
+                let f = atributos(ordem: ordem)
+                print("\nVocê agora pertence à Ordem de \(ordem).")
+                print("Vida base: \(f.vida)")
+                print("Filosofia: \(f.filosofia)")
+                print("Dica: \(f.dica)\n")
+            }
+        
+        case "2":
+            if let ordem = ordemEscolhida {
+                iniciarDuelo(ordem: ordem)
+            } else {
+                print("Escolha uma Ordem primeiro!\n")
+            }
+        
+        case "3":
+            if let ordem = ordemEscolhida {
+                let f = atributos(ordem: ordem)
+                print("\n📜 Filosofia da Ordem:")
+                print(f.filosofia)
+                print("Dica: \(f.dica)\n")
+            } else {
+                print("Nenhuma Ordem selecionada.\n")
+            }
+        
+        case "4":
+            print("Saindo do Santuário...")
+            executando = false
+        
+        default:
+            print("Opção inválida.\n")
+    }
+}
