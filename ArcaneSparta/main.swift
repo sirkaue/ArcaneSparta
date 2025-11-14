@@ -45,3 +45,19 @@ let inimigos = [
 func inimigoAleatorio() -> (nome: String, vida: Int, ataque: Int) {
     return inimigos.randomElement()!
 }
+
+var ordemEscolhida: OrdemArcana? = nil
+
+func mostrarMenu() {
+    print("""
+    
+    🛡 Santuário de Esparta Arcana
+    Escolha uma opção:
+    
+    1. Escolher Ordem Arcana
+    2. Entrar no Santuário (duelo)
+    3. Ver Filosofia da Ordem
+    4. Sair
+    
+    """)
+}
