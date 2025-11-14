@@ -61,3 +61,64 @@ func mostrarMenu() {
     
     """)
 }
+
+func iniciarDuelo(ordem: OrdemArcana) {
+    var inimigo = inimigoAleatorio()
+    let status = atributos(ordem: ordem)
+    var vidaJogador = status.vida
+
+    print("\n⚔️ Você entrou no Santuário Arcano...")
+    print("Um \(inimigo.nome) surge diante de você!")
+    print("Vida do inimigo: \(inimigo.vida)\n")
+    print("📌 Dica da sua Ordem: \(status.dica)\n")
+
+    while vidaJogador > 0 && inimigo.vida > 0 {
+        
+        print("""
+        ❗ Status atual:
+        Sua vida: \(vidaJogador)
+        Vida do inimigo: \(inimigo.vida)
+
+        Escolha sua ação:
+        1. Golpe Normal
+        2. Golpe Arcano
+        """)
+        
+        let escolha = readLine()
+        var danoCausado = 0
+        
+        if escolha == "1" {
+            let resultado = calcularDano(base: status.danoBase, critChance: status.critChance)
+            danoCausado = resultado.dano
+            print("\nVocê atacou e causou \(danoCausado) de dano\(resultado.critico ? " (CRÍTICO!)" : "").")
+        }
+        else if escolha == "2" {
+            let extra = Int.random(in: 5...12)
+            danoCausado = status.danoBase + extra
+            print("\n✨ Golpe Arcano! Você canalizou poder místico e causou \(danoCausado) de dano!")
+        }
+        else {
+            print("Ação inválida.")
+            continue
+        }
+        
+        inimigo.vida -= danoCausado
+        
+        if inimigo.vida <= 0 {
+            print("\n🏆 Você derrotou o \(inimigo.nome)!")
+            return
+        }
+        
+        // Inimigo ataca
+        print("O \(inimigo.nome) revida!")
+        print("🩸 Ele causou \(inimigo.ataque) de dano.")
+        vidaJogador -= inimigo.ataque
+        
+        if vidaJogador <= 0 {
+            print("\n💀 Você caiu no Santuário...")
+            return
+        }
+
+        print("")
+    }
+}
