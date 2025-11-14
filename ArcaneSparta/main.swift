@@ -29,3 +29,19 @@ func atributos(ordem: OrdemArcana) -> (vida: Int, danoBase: Int, critChance: Int
                     dica: "Kháos tem Golpe Arcano poderoso.")
     }
 }
+
+func calcularDano(base: Int, critChance: Int) -> (dano: Int, critico: Bool) {
+    let critico = Int.random(in: 1...100) <= critChance
+    let valor = critico ? base * 2 : base
+    return (valor, critico)
+}
+
+let inimigos = [
+    (nome: "Serpente da Areia", vida: 30, ataque: 6),
+    (nome: "Espectro do Deserto", vida: 34, ataque: 8),
+    (nome: "Guardião da Noite", vida: 40, ataque: 9)
+]
+
+func inimigoAleatorio() -> (nome: String, vida: Int, ataque: Int) {
+    return inimigos.randomElement()!
+}
